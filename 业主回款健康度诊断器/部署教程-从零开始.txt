@@ -1,0 +1,263 @@
+# 业主回款健康度诊断器 - 部署为网页链接教程
+
+> 目标：把这个工具变成一个链接，如 https://cscec-receivable.streamlit.app
+> 发给任何人，点击就能直接使用，无需安装任何东西。
+
+---
+
+## 第一步：注册 GitHub 账号（约2分钟）
+
+### 1.1 打开注册页面
+1. 用浏览器打开 https://github.com/
+2. 页面中间偏上有一个**绿色按钮**写着 **"Sign up for GitHub"**，点击它
+
+### 1.2 填写注册信息
+| 要填的 | 你填什么 |
+|--------|---------|
+| Enter your email | 你的邮箱地址（用公司邮箱或QQ邮箱都行） |
+| Continue | 点蓝色按钮 |
+| Create a password | 设置密码（至少8位，字母+数字） |
+| Continue | 点蓝色按钮 |
+| Enter a username | 设置用户名（**用英文**，比如 `zhangsan-cscec`，记下来后面要用！） |
+
+### 1.3 完成验证
+1. 页面会弹出验证题，比如 "Pick the image with a bicycle"（选有自行车的图片）
+2. 按提示点对应的图片
+3. 点 **"Create account"**
+
+### 1.4 邮箱验证
+1. 打开你的邮箱（QQ邮箱就去mail.qq.com，企业邮箱就去公司邮箱）
+2. 找 GitHub 发来的邮件，标题类似 "Please verify your email address"
+3. 打开邮件，里面有一个6位数字的**验证码**
+4. 回到 GitHub 注册页面，输入这个验证码
+5. 看到 "Welcome to GitHub" 就注册成功了
+
+> **重要**：你的用户名（如 `zhangsan-cscec`）一定要记下来！后面部署的时候要用。
+
+---
+
+## 第二步：创建 GitHub 仓库（约3分钟）
+
+仓库就是存放代码的地方，相当于一个文件夹。
+
+### 2.1 进入创建页面
+1. 注册成功后你应该在 GitHub 首页
+2. 看页面**左上角**，有一个 **+ 号按钮**（在 GitHub logo 右边）
+3. 鼠标放上去，会弹出菜单，点 **"New repository"**
+
+### 2.2 填写仓库信息
+页面上有几项要填：
+
+| 要填的 | 你填什么 |
+|--------|---------|
+| Repository name | `cscec-receivable`（这是你的回款诊断器仓库名字） |
+| Description | 可以不填 |
+| Public / Private | 点选 **Public**（公开的才能免费部署） |
+| Add a README file | **不要勾选**（空框） |
+| Add .gitignore | **不要勾选** |
+| Choose a license | **不要勾选** |
+
+### 2.3 创建仓库
+1. 页面最下方有一个**绿色按钮** **"Create repository"**，点击它
+2. 等页面跳转，看到类似下面这样就是成功了：
+   ```
+   Quick setup — if you've done this kind of thing before
+   ...or create a new repository on the command line
+   ...or push an existing repository from the command line
+   ...or import code from another repository
+   ```
+
+---
+
+## 第三步：上传代码文件（约5分钟）
+
+现在要把这个文件夹里的文件上传到 GitHub。
+
+### 3.1 找到上传入口
+在刚才创建的仓库页面（就是第二步创建完跳转到的页面）：
+1. 看页面中间偏下，有一行文字
+2. 找到蓝色链接 **"uploading an existing file"**，点击它
+
+### 3.2 上传文件
+页面会显示一个**虚线框**，写着 "Drag files here to add them to your repository"
+
+**你需要上传的文件清单（从"业主回款健康度诊断器"文件夹里找）：**
+
+**第一组：Python代码文件（逐个上传）**
+1. 点虚线框下面的 **"choose your files"** 蓝色文字
+2. 在弹出的文件选择器里，找到"业主回款健康度诊断器"文件夹
+3. 选中 `app.py`，点"打开"
+4. 等文件显示在列表里（文件名 + 大小）
+5. 重复上面步骤，再上传：
+   - `receivable_analyzer.py`
+   - `requirements.txt`
+
+**第二组：配置文件夹**
+`.streamlit` 文件夹里的 `config.toml` 需要上传：
+1. 点 "choose your files"
+2. 进入 `.streamlit` 文件夹
+3. 选中 `config.toml`，点"打开"
+4. 注意：`.streamlit` 这个文件夹在网页上不会自动创建，部署时Streamlit会自动识别
+
+**第三组：图片资源（整个文件夹拖上去）**
+1. 打开你的"业主回款健康度诊断器"文件夹
+2. 把 `assets` 文件夹**整个拖**到网页的虚线框里
+3. 等所有图片文件（logo.png、banner.png、construction_icon.png）都显示在列表里
+
+### 3.3 确认文件列表
+上传完成后，页面会显示所有文件的列表，你应该看到：
+```
+app.py
+receivable_analyzer.py
+requirements.txt
+config.toml
+assets/
+  ├── logo.png
+  ├── banner.png
+  └── construction_icon.png
+```
+
+> 如果没有 `config.toml`，单独再上传一次。
+
+### 3.4 提交上传
+页面下方有一个区域写着 **"Commit changes"**：
+1. 第一个输入框保持默认文字（不用改）
+2. 点绿色的 **"Commit changes"** 按钮
+3. 等页面刷新，看到文件列表就说明上传成功了
+
+---
+
+## 第四步：部署到 Streamlit Cloud（约5分钟）
+
+Streamlit Cloud 是一个免费的服务器，帮你运行这个工具并生成链接。
+
+### 4.1 打开 Streamlit Cloud
+1. 新标签页打开 https://streamlit.io/cloud
+2. 页面中间有一个**紫色按钮** **"Get started"**，点击
+
+### 4.2 用 GitHub 登录
+1. 页面有几个登录选项
+2. 点 **"Continue with GitHub"**（紫色的按钮）
+3. 如果你已经在 GitHub 登录了，会直接跳转
+4. 如果弹出授权页面，点绿色的 **"Authorize streamlit"**
+
+### 4.3 创建工作区（首次使用）
+如果是第一次用 Streamlit Cloud：
+1. 页面让你填 workspace 名字
+2. 随便填一个英文名字，比如 `cscec-workspace`
+3. 点 **"Create workspace"**
+
+### 4.4 创建新应用
+进入工作区后：
+1. 看页面右上角，有一个 **"New app"** 按钮，点击
+2. 弹出 "Deploy an app" 窗口
+
+### 4.5 填写部署配置
+窗口里填这几项：
+
+| 要填的 | 你填什么 |
+|--------|---------|
+| Repository | 点下拉框，找到并选择 `你的用户名/cscec-receivable` |
+| Branch | 选 `main` |
+| Main file path | 填 `app.py` |
+| App URL (optional) | 填 `cscec-receivable`（这样你的链接就是 https://cscec-receivable.streamlit.app） |
+
+> 如果下拉框里没有你的仓库，等10秒刷新页面再试。
+
+### 4.6 开始部署
+1. 点最下面的 **"Deploy!"** 紫色按钮
+2. 页面跳转到部署状态页面
+
+### 4.7 等待部署完成
+你会看到几个步骤依次进行：
+- 🔲 Spinning up manager...
+- 🔲 Cloning repository...
+- 🔲 Building app...
+- 🔲 Downloading dependencies...（pandas、plotly等库）
+- ✅ **Your app is in the oven!**（在构建中，等2-3分钟）
+
+**约2-5分钟后**，变成：
+- ✅ **Your app is ready!**
+
+这就成功了！
+
+### 4.8 获得你的链接
+部署成功后，页面顶部就是你的应用链接：
+```
+https://cscec-receivable.streamlit.app
+```
+
+1. 复制这个链接
+2. 发给领导、同事
+3. 他们点击就能直接使用，不需要装任何软件
+
+---
+
+## 第五步：测试链接
+
+1. 新标签页打开你的链接
+2. 应该能看到工具的界面
+3. 上传一个Excel文件测试一下功能是否正常
+
+---
+
+## 如果部署失败了怎么办？
+
+### 情况1：提示 "FileNotFoundError"
+原因：文件没传全  
+解决：回 GitHub 仓库页面，检查是否所有文件都在
+
+### 情况2：提示 "ModuleNotFoundError"
+原因：requirements.txt 里缺了依赖  
+解决：检查 requirements.txt 是否上传了，内容是否正确：
+```
+streamlit>=1.28.0
+pandas>=2.0.0
+numpy>=1.24.0
+plotly>=5.15.0
+openpyxl>=3.1.0
+xlrd>=2.0.0
+```
+
+### 情况3：图片显示不出来
+原因：assets 文件夹没上传  
+解决：回 GitHub 仓库，检查有没有 assets/ 文件夹和里面的图片
+
+### 情况4：部署卡住很久
+解决：
+1. 刷新页面
+2. 点 "Manage app" → "Reboot"
+3. 或者点右边的 "⋮"（三个点）→ "Delete" 删掉重新部署
+
+### 情况5：链接打不开
+原因：Streamlit Cloud 在国内部分地区被拦截  
+解决：
+- 换手机流量试试
+- 或者等几分钟再试
+
+---
+
+## 后续修改代码后如何更新？
+
+1. 去 GitHub 仓库页面（github.com/你的用户名/cscec-receivable）
+2. 找到要修改的文件，点击文件名
+3. 点击右上角的**铅笔图标**（"Edit this file"）
+4. 修改代码
+5. 页面下方点 **"Commit changes..."** 绿色按钮
+6. Streamlit Cloud 会自动重新部署（约1分钟）
+7. 刷新你的链接即可看到更新
+
+---
+
+## 最终成果
+
+部署成功后，你会得到：
+```
+🔗 https://cscec-receivable.streamlit.app
+```
+
+发给任何人，他们：
+- ✅ 不需要安装 Python
+- ✅ 不需要安装任何软件
+- ✅ 手机、电脑都能打开
+- ✅ 点击链接就能直接使用
