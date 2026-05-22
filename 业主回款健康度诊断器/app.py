@@ -55,6 +55,7 @@ from receivable_analyzer import (
     create_owner_comparison,
     create_ar_waterfall,
     create_uncleared_detail,
+    generate_owner_report,
 )
 
 # ============== 页面配置 ==============
