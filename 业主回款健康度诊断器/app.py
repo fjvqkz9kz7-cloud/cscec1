@@ -331,7 +331,7 @@ if uploaded_file is not None:
                         return 'background-color: #eafaf1; color: #27ae60'
                     return ''
                 
-                styled_df = display_df.style.applymap(highlight_risk, subset=['风险等级'])
+                styled_df = display_df.style.map(highlight_risk, subset=['风险等级'])
                 st.dataframe(styled_df, use_container_width=True, height=350)
             else:
                 st.info("暂无业主数据")
